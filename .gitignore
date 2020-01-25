@@ -6,3 +6,7 @@ data/test/*
 log/*
 *.sh
 result/*/*
+
+*DS_Store
+data_small/
+
