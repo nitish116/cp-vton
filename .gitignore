@@ -1,5 +1,4 @@
 *__pycache__*
-*.pyc
 checkpoints/*
 tensorboard/*
 data/train/*
@@ -10,5 +9,4 @@ result/*/*
 
 *DS_Store
 data_small/
-data*
 
