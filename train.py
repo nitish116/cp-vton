@@ -42,7 +42,7 @@ def get_opt():
     return opt
 
 def train_gmm(opt, train_loader, model, board):
-    model.cuda()
+    # model.cuda()
     model.train()
 
     # criterion
@@ -57,15 +57,15 @@ def train_gmm(opt, train_loader, model, board):
         iter_start_time = time.time()
         inputs = train_loader.next_batch()
             
-        im = inputs['image'].cuda()
-        im_pose = inputs['pose_image'].cuda()
-        im_h = inputs['head'].cuda()
-        shape = inputs['shape'].cuda()
-        agnostic = inputs['agnostic'].cuda()
-        c = inputs['cloth'].cuda()
-        cm = inputs['cloth_mask'].cuda()
-        im_c =  inputs['parse_cloth'].cuda()
-        im_g = inputs['grid_image'].cuda()
+        im = inputs['image']
+        im_pose = inputs['pose_image']
+        im_h = inputs['head']
+        shape = inputs['shape']
+        agnostic = inputs['agnostic']
+        c = inputs['cloth']
+        cm = inputs['cloth_mask']
+        im_c =  inputs['parse_cloth']
+        im_g = inputs['grid_image']
             
         grid, theta = model(agnostic, c)
         warped_cloth = F.grid_sample(c, grid, padding_mode='border')
@@ -92,7 +92,7 @@ def train_gmm(opt, train_loader, model, board):
 
 
 def train_tom(opt, train_loader, model, board):
-    model.cuda()
+    # model.cuda()
     model.train()
     
     # criterion
@@ -109,14 +109,14 @@ def train_tom(opt, train_loader, model, board):
         iter_start_time = time.time()
         inputs = train_loader.next_batch()
             
-        im = inputs['image'].cuda()
+        im = inputs['image']
         im_pose = inputs['pose_image']
         im_h = inputs['head']
         shape = inputs['shape']
 
-        agnostic = inputs['agnostic'].cuda()
-        c = inputs['cloth'].cuda()
-        cm = inputs['cloth_mask'].cuda()
+        agnostic = inputs['agnostic']
+        c = inputs['cloth']
+        cm = inputs['cloth_mask']
         
         outputs = model(torch.cat([agnostic, c],1))
         p_rendered, m_composite = torch.split(outputs, 3,1)
