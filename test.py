@@ -52,6 +52,9 @@ def test_gmm(opt, test_loader, model, board):
     if not os.path.exists(warp_mask_dir):
         os.makedirs(warp_mask_dir)
 
+    print(warp_cloth_dir)
+
+
     for step, inputs in enumerate(test_loader.data_loader):
         iter_start_time = time.time()
         
@@ -148,6 +151,7 @@ def main():
         model = GMM(opt)
         load_checkpoint(model, opt.checkpoint)
         with torch.no_grad():
+            print("INSIDE KADDAAAA")
             test_gmm(opt, train_loader, model, board)
     elif opt.stage == 'TOM':
         model = UnetGenerator(25, 4, 6, ngf=64, norm_layer=nn.InstanceNorm2d)
