@@ -96,7 +96,7 @@ class FeatureCorrelation(nn.Module):
         return correlation_tensor
     
 class FeatureRegression(nn.Module):
-    def __init__(self, input_nc=512,output_dim=6, use_cuda=True):
+    def __init__(self, input_nc=512,output_dim=6, use_cuda=False):
         super(FeatureRegression, self).__init__()
         self.conv = nn.Sequential(
             nn.Conv2d(input_nc, 512, kernel_size=4, stride=2, padding=1),
@@ -140,7 +140,7 @@ class AffineGridGen(nn.Module):
         return F.affine_grid(theta, out_size)
         
 class TpsGridGen(nn.Module):
-    def __init__(self, out_h=256, out_w=192, use_regular_grid=True, grid_size=3, reg_factor=0, use_cuda=True):
+    def __init__(self, out_h=256, out_w=192, use_regular_grid=True, grid_size=3, reg_factor=0, use_cuda=False):
         super(TpsGridGen, self).__init__()
         self.out_h, self.out_w = out_h, out_w
         self.reg_factor = reg_factor
@@ -409,8 +409,8 @@ class GMM(nn.Module):
         self.extractionB = FeatureExtraction(3, ngf=64, n_layers=3, norm_layer=nn.BatchNorm2d)
         self.l2norm = FeatureL2Norm()
         self.correlation = FeatureCorrelation()
-        self.regression = FeatureRegression(input_nc=192, output_dim=2*opt.grid_size**2, use_cuda=True)
-        self.gridGen = TpsGridGen(opt.fine_height, opt.fine_width, use_cuda=True, grid_size=opt.grid_size)
+        self.regression = FeatureRegression(input_nc=192, output_dim=2*opt.grid_size**2, use_cuda=False)
+        self.gridGen = TpsGridGen(opt.fine_height, opt.fine_width, use_cuda=False, grid_size=opt.grid_size)
         
     def forward(self, inputA, inputB):
         featureA = self.extractionA(inputA)
