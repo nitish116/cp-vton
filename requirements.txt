@@ -1,2 +1,2 @@
 torchvision
-tensorboard
+tensorboardX
