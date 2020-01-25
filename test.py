@@ -86,7 +86,7 @@ def test_gmm(opt, test_loader, model, board):
 
 
 def test_tom(opt, test_loader, model, board):
-    model.cuda()
+    # model.cuda()
     model.eval()
     
     base_name = os.path.basename(opt.checkpoint)
@@ -101,14 +101,14 @@ def test_tom(opt, test_loader, model, board):
         iter_start_time = time.time()
         
         im_names = inputs['im_name']
-        im = inputs['image'].cuda()
+        im = inputs['image']
         im_pose = inputs['pose_image']
         im_h = inputs['head']
         shape = inputs['shape']
 
-        agnostic = inputs['agnostic'].cuda()
-        c = inputs['cloth'].cuda()
-        cm = inputs['cloth_mask'].cuda()
+        agnostic = inputs['agnostic']
+        c = inputs['cloth']
+        cm = inputs['cloth_mask']
         
         outputs = model(torch.cat([agnostic, c],1))
         p_rendered, m_composite = torch.split(outputs, 3,1)
