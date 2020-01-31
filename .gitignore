@@ -9,4 +9,8 @@ result/*/*
 
 *DS_Store
 data_small/
+data_copy
+temp_data
+
+*pth
 
